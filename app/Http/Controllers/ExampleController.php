@@ -7,12 +7,12 @@ use Illuminate\Http\Request;
 class ExampleController extends Controller
 {
     function login(){
-        return'logined';
+        return view('login');
     }
-    function submit(){
-        return view('done');
+    function contact(){
+        return view('contact');
     }
-    function contact(Request $req) {
-        print_r($req->input());
-    }
+    // function contact(Request $req) {
+    //     print_r($req->input());
+    // }
 }
