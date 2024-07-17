@@ -1,8 +1,11 @@
 <?php
 
 
-use Illuminate\Routing\Route as RoutingRoute;
+// use Illuminate\Routing\Route as RoutingRoute;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ExampleController;
+Route::get('login', [ExampleController::class, 'login']);
+Route::get('cv', [ExampleController::class, 'cv']);
 
 Route::get('', function () {
     return view('welcome');
@@ -113,6 +116,39 @@ Route::get('w', function () {
 // Route::fallback(function() {
 //     return redirect('/');
 // });
+
+// View
 Route::get('cv', function(){
     return view('cv');
 });
+// OR
+Route::view('CV','CV');
+
+// link
+Route::get('link', function(){
+    $url = route('w');
+    return "<a href='$url'>Go to welcom</a>";
+});
+Route::get('welcom', function(){
+    return('welcom to laravel');
+})->name('w');
+#method ..... 
+Route::get('login',[ExampleController::class,'login']);
+
+Route::post('data', function(){
+    return "Data done";
+})->name('data');
+
+// ----------
+// Route::get('contact', function(){
+//     return view("contact");
+// });
+Route::get('contact',[ExampleController::class,'contact']);
+
+Route::post('submit', function(){
+    // fallback
+// Route::fallback(function() {
+//     return redirect('login');
+// });
+    return view("submit");
+})->name('submit');
