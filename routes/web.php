@@ -1,11 +1,14 @@
 <?php
 
 
-// use Illuminate\Routing\Route as RoutingRoute;
+use Illuminate\Routing\Route as RoutingRoute;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ExampleController;
+
 Route::get('login', [ExampleController::class, 'login']);
 Route::get('cv', [ExampleController::class, 'cv']);
+Route::get('contact', [ExampleController::class, 'contact']);
+
 
 Route::get('', function () {
     return view('welcome');
@@ -143,12 +146,9 @@ Route::post('data', function(){
 // Route::get('contact', function(){
 //     return view("contact");
 // });
-Route::get('contact',[ExampleController::class,'contact']);
 
-Route::post('submit', function(){
-    // fallback
-// Route::fallback(function() {
-//     return redirect('login');
-// });
-    return view("submit");
-})->name('submit');
+Route::get('submit', [ExampleController::class,'submit'])->name('submit');
+
+// Route::post('submit', function(){
+//     return "submit";
+// })->name('submit');
