@@ -142,12 +142,12 @@ Route::post('data', function(){
     return "Data done";
 })->name('data');
 
-// ----------
+// --------
 // Route::get('contact', function(){
 //     return view("contact");
 // });
 
-Route::get('submit', [ExampleController::class,'submit'])->name('submit');
+Route::post('submit', [ExampleController::class,'submit'])->name('submit');
 
 // Route::post('submit', function(){
 //     return "submit";

@@ -15,10 +15,10 @@ class ExampleController extends Controller
     }
 
     function submit(Request $req){
-         dd($req->all());
-         return $req['email'] . '<br>' . $req->pwd;
+        //  dd($req->all());
+         return $req['name'] . '<br>' .$req['email'] . '<br>' .$req['subject'] . '<br>' .$req['message'] . $req->pwd;
     }
-    // function contact(Request $req) {
+    // function submit(Request $req) {
     //     print_r($req->input());
     // }
 }
