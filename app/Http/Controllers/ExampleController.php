@@ -6,14 +6,15 @@ use Illuminate\Http\Request;
 
 class ExampleController extends Controller
 {
-    function login(){
+   public function login(){
         return view('login');
     }
-
+  
+//1. contact us page
     function contact(){
         return view('contact');
     }
-
+//2.request ... method
     function submit(Request $req){
         //  dd($req->all());
          return $req['name'] . '<br>' .$req['email'] . '<br>' .$req['subject'] . '<br>' .$req['message'] . $req->pwd;

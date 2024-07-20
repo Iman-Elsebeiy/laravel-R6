@@ -4,10 +4,11 @@
 use Illuminate\Routing\Route as RoutingRoute;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ExampleController;
+use App\Http\Controllers\CarController;
+use App\Http\Controllers\ClasseController;
 
 Route::get('login', [ExampleController::class, 'login']);
 Route::get('cv', [ExampleController::class, 'cv']);
-Route::get('contact', [ExampleController::class, 'contact']);
 
 
 Route::get('', function () {
@@ -146,9 +147,19 @@ Route::post('data', function(){
 // Route::get('contact', function(){
 //     return view("contact");
 // });
+Route::get('contact', [ExampleController::class, 'contact']);
 
+                                                // method
 Route::post('submit', [ExampleController::class,'submit'])->name('submit');
 
 // Route::post('submit', function(){
 //     return "submit";
 // })->name('submit');
+
+// cars table
+Route::get('cars/create',[CarController::class, 'create'])->name('cars.create');
+Route::post('cars',[CarController::class, 'store'])->name('cars.store');
+
+// classes
+Route::get('classes/create',[ClasseController::class, 'create'])->name('classes.create');
+Route::post('classes',[ClasseController::class, 'store'])->name('classes.store');
