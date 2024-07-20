@@ -42,8 +42,8 @@ class ClasseController extends Controller
             'capacity' => $capacity,
             'price' => $price,
             'isFulled'=> 0,
-            'timeFrom'=> 3,
-            'timeTo'=> 5
+            'timeFrom'=> $timeFrom,
+            'timeTo'=> $timeTo
             ]);
 
         return "Data added successfully"; 
