@@ -122,6 +122,7 @@ Route::get('w', function () {
 // });
 
 // View
+
 Route::get('cv', function(){
     return view('cv');
 });
