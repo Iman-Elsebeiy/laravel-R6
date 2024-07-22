@@ -162,5 +162,5 @@ Route::get('cars/create',[CarController::class, 'create'])->name('cars.create');
 Route::post('cars',[CarController::class, 'store'])->name('cars.store');
 
 // classes
-Route::get('classes/create',[ClasseController::class, 'create'])->name('classes.create');
+Route::get('classes/adding',[ClasseController::class, 'create'])->name('classes.create');
 Route::post('classes',[ClasseController::class, 'store'])->name('classes.store');

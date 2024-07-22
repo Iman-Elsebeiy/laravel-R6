@@ -27,15 +27,16 @@
         <table class="table table-hover">
           <thead>
             <tr class="table-dark">
-              <th scope="col">Class name</th>
-              <th scope="col">capacity</th>
+              <th scope="col">Class Name</th>
+              <th scope="col">Capacity</th>
               <th scope="col">Price</th>
-              <th scope="col">is fulled</th>
+              <th scope="col">Is fulled</th>
               <th scope="col">Time from</th>
               <th scope="col">Time to</th>
             </tr>
           </thead>
           <tbody>
+            @{foreach(classe as classes)}
             <tr>
               <td scope="row">Art and Drawing</td>
               <td>12</td>
@@ -44,6 +45,7 @@
               <td>5</td>
               <td>6 Am</td>
             </tr>
+            @{end}
           </tbody>
         </table>
       </div>

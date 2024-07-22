@@ -28,10 +28,15 @@ class CarController extends Controller
     public function store(Request $request)
     {
         // dd($request);
-            $carTitle = 'BMW';
-            $description ="TEST"; 
+             $carTitle = 'BMW';
+             $description ="TEST"; 
+            // $price = 12;
+            // $published = 1;
+            // $carTitle => request() 'BMW';
+            // $description => request()"TEST"; 
             $price = 12;
             $published = 1;
+
 
 
             Car::create([

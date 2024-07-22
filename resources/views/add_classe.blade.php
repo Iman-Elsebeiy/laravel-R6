@@ -23,7 +23,7 @@
   <main>
     <div class="container my-5">
       <div class="bg-light p-5 rounded">
-        <h2 class="fw-bold fs-2 mb-5 pb-2">Add Classe</h2>
+        <h2 class="fw-bold fs-2 mb-5 pb-2">Add Class</h2>
         <form action="{{route('classes.store')}}" method="POST" class="px-md-5">
           @csrf
         <div class="form-group mb-3 row">
@@ -44,17 +44,25 @@
               <input type="number" step="0.1" placeholder="Enter price" name="price" class="form-control py-2" />
             </div>
           </div>
+          <div class="form-group mb-3 row">
+              <label for="" class="form-label col-md-2 fw-bold text-md-end"
+                >Time:</label>
+              <div class="col-md-10">
+                <label for="" class="form-label">From <input  type="time" class="form-control" name="timeFrom"></label>
+                <label for="" class="form-label">To <input type="time" class="form-control" name="timeTo"></label>
+              </div>
+            </div>
           </div>
           <hr>
-          <div class="form-group mb-3 row">
-            <label for="" class="form-label col-md-2 fw-bold text-md-end">Published:</label>
+           <div class="form-group mb-3 row">
+            <label for="" class="form-label col-md-2 fw-bold text-md-end">Is Fulled:</label>
             <div class="col-md-10">
               <input type="checkbox" class="form-check-input" style="padding: 0.7rem;" />
             </div>
-          </div>
-          <div class="text-md-end">
+           </div>
+           <div class="text-md-end">
             <button class="btn mt-4 btn-secondary text-white fs-5 fw-bold border-0 py-2 px-md-5">
-              Add Classe
+              Add Class
             </button>
           </div>
         </form>

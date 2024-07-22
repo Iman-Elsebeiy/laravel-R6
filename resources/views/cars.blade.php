@@ -40,12 +40,7 @@
               <td>test test test ...</td>
               <td>YES</td>
             </tr>
-            <tr>
-              <td scope="row">BMW</td>
-              <td>120000</td>
-              <td>test test test ...</td>
-              <td>YES</td>
-            </tr>
+            {      }
           </tbody>
         </table>
       </div>
