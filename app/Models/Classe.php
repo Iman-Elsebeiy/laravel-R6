@@ -16,7 +16,6 @@ class Classe extends Model
         'capacity',
         'price',
         'isFulled',
-        'price',
         'timeFrom',
         'timeTo'
     ];
