@@ -53,15 +53,14 @@
               </div>
             </div>
           </div>
-          <hr>
-           <div class="form-group mb-3 row">
-            <label for="" class="form-label col-md-2 fw-bold text-md-end">Is Fulled:</label>
-            <div class="col-md-10">
-              <input type="checkbox" class="form-check-input" style="padding: 0.7rem;" />
-            </div>
-           </div>
-           <div class="text-md-end">
-            <button class="btn mt-4 btn-secondary text-white fs-5 fw-bold border-0 py-2 px-md-5">
+          <div class="form-group mb-3 row">
+              <label for="" class="form-label col-md-2 fw-bold text-md-end">Is Fulled:</label>
+              <div class="col-md-10">
+                <input type="checkbox" class="form-check-input" style="padding: 0.7rem;" name="isFulled" />
+              </div>
+             </div>
+             <div class="text-md-end">
+              <button class="btn mt-4 btn-secondary text-white fs-5 fw-bold border-0 py-2 px-md-5">
               Add Class
             </button>
           </div>
