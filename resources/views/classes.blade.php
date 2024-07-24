@@ -27,23 +27,26 @@
         <table class="table table-hover">
           <thead>
             <tr class="table-dark">
-              <th scope="col">Class name</th>
-              <th scope="col">capacity</th>
+              <th scope="col">Class Name</th>
+              <th scope="col">Capacity</th>
               <th scope="col">Price</th>
-              <th scope="col">is fulled</th>
-              <th scope="col">Time from</th>
-              <th scope="col">Time to</th>
+              <th scope="col">Is fulled</th>
+              <th scope="col">   Time </th>
+              <th scope="col">Edite</th>
             </tr>
           </thead>
           <tbody>
+            @foreach($classes as $classe)
             <tr>
-              <td scope="row">Art and Drawing</td>
-              <td>12</td>
-              <td>1255$ </td>
-              <td>YES</td>
-              <td>5</td>
-              <td>6 Am</td>
+              <td scope="row">{{$classe['name']}}</td>
+              <td>{{$classe['capacity']}}</td>
+              <td> {{$classe['price'] }} $ </td>
+              <td>{{($classe['isFulled'] == 1) ? "Yes" : "No"}}</td>
+              <td>{{date("h:i", strtotime($classe['timeFrom']))}} {{"-"}}{{date("h:i A", strtotime($classe['timeTo']))}}</td>
+              <td><a href="{{route('classes.edit', $classe['id'])}}">✒️</a></td>
+
             </tr>
+            @endforeach
           </tbody>
         </table>
       </div>
