@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>All Classes</title>
+  <title>All Car</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -23,38 +23,31 @@
   <main>
     <div class="container my-5">
       <div class="bg-light p-5 rounded">
-        <h2 class="fw-bold fs-2 mb-5 pb-2">All Classes</h2>
+        <h2 class="fw-bold fs-2 mb-5 pb-2">Trashed Cars</h2>
         <table class="table table-hover">
           <thead>
             <tr class="table-dark">
-              <th scope="col">Class Name</th>
-              <th scope="col">Capacity</th>
+              <th scope="col">Car Title</th>
               <th scope="col">Price</th>
-              <th scope="col">Is fulled</th>
-              <th scope="col">   Time </th>
-              <th scope="col">Edite</th>
-              <th scope="col">Show</th>
-              <th scope="col">Delete</th>
+              <th scope="col">Description</th>
+              <th scope="col">Published</th>
+              <th scope="col">Edit</th>
+              <th scope="col">Show details</th>
+              <th scope="col">Permenant Delete</th>
             </tr>
           </thead>
           <tbody>
-            @foreach($classes as $classe)
+            @foreach($cars as $car)
             <tr>
-              <td scope="row">{{$classe['name']}}</td>
-              <td>{{$classe['capacity']}}</td>
-              <td> {{$classe['price'] }} $ </td>
-              <td>{{($classe['isFulled'] == 1) ? "Yes" : "No"}}</td>
-              <td>{{date("h:i", strtotime($classe['timeFrom']))}} {{"-"}}{{date("h:i A", strtotime($classe['timeTo']))}}</td>
-              <td><a href="{{route('classes.edit', $classe['id'])}}">✒️</a></td>
-              <td><a href="{{route('classes.show', $classe['id'])}}">Show</a></td>
-              <td><form action="{{ route('classes.destroy') }}" method="post">
-              @csrf
-              @method('delete')
-              <input type="hidden" name="id" value="{{ $classe->id }}">
-              <input type="submit" value="delete">
-              </form></td>
+              <td scope="row">{{$car['carTitle']}}</td>
+              <td>{{$car['price']}}</td>
+              <td>{{$car['description']}}</td>
+              <td>{{$car->published? 'yes':'no'}}</td>
+              <td><a href="{{route('cars.edit', $car['id'])}}">✒️</a></td>
+              <td><a href="{{route('cars.show', $car['id'])}}">Show</a></td>
+              <td><a href="" onclick="return confirm('Are you sure you want to delete?')">Delete</a></td>
             </tr>
-            @endforeach
+            @endforeach  
           </tbody>
         </table>
       </div>

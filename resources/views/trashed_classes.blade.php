@@ -23,7 +23,7 @@
   <main>
     <div class="container my-5">
       <div class="bg-light p-5 rounded">
-        <h2 class="fw-bold fs-2 mb-5 pb-2">All Classes</h2>
+        <h2 class="fw-bold fs-2 mb-5 pb-2">Trashed Classes</h2>
         <table class="table table-hover">
           <thead>
             <tr class="table-dark">
@@ -34,7 +34,7 @@
               <th scope="col">   Time </th>
               <th scope="col">Edite</th>
               <th scope="col">Show</th>
-              <th scope="col">Delete</th>
+              <th scope="col">Permenant Delete</th>
             </tr>
           </thead>
           <tbody>
@@ -47,12 +47,8 @@
               <td>{{date("h:i", strtotime($classe['timeFrom']))}} {{"-"}}{{date("h:i A", strtotime($classe['timeTo']))}}</td>
               <td><a href="{{route('classes.edit', $classe['id'])}}">✒️</a></td>
               <td><a href="{{route('classes.show', $classe['id'])}}">Show</a></td>
-              <td><form action="{{ route('classes.destroy') }}" method="post">
-              @csrf
-              @method('delete')
-              <input type="hidden" name="id" value="{{ $classe->id }}">
-              <input type="submit" value="delete">
-              </form></td>
+              <td><a href="#">Delete</a></td>
+
             </tr>
             @endforeach
           </tbody>
