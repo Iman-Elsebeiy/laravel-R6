@@ -50,7 +50,7 @@
               <td><form action="{{ route('classes.destroy') }}" method="post">
               @csrf
               @method('delete')
-              <input type="hidden" name="id" value="{{ $classe->id }}">
+              <input type="hidden" name="id" value="{{$classe->id}}">
               <input type="submit" value="delete">
               </form></td>
             </tr>

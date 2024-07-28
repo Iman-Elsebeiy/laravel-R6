@@ -164,7 +164,7 @@ Route::post('cars',[CarController::class, 'store'])->name('cars.store');
 Route::get('cars/{id}/edit', [CarController::class, 'edit'])->name('cars.edit');
 Route::put('cars/{id}', [CarController::class, 'update'])->name('cars.update');
 Route::get('cars/{id}/show', [CarController::class, 'show'])->name('cars.show');
-Route::delete('delete', [CarController::class, 'destroy'])->name('cars.destroy');
+Route::delete('cars/delete', [CarController::class, 'destroy'])->name('cars.destroy');
 Route::get('cars/trashed', [CarController::class, 'showDeleted'])->name('cars.showDeleted');
 
 // classes
