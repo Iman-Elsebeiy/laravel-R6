@@ -32,22 +32,16 @@ class ClasseController extends Controller
     public function store(Request $request)
     {
         //  dd($request);
-
-        // $name = 'Art and Drawing';
-        // $capacity =33; 
-        // $price = 12;
-        // $isFulled = true;
-        // $timeFrom = 1;
-        // $timeTo = 1;
-        $data = [
-            'name' => $request->name,
-            'capacity' => $request->capacity,
-            'price' => $request->price,
-            'isFulled'=> isset($request->isFulled),
-            'timeFrom'=> $request->timeFrom,
-            'timeTo'=> $request->timeTo 
-        ];
-
+        //  validation of the data
+        $data = $request->validate([
+            'name' => 'required|string',
+            'capacity' => 'required|numeric|min:2',
+            'price' => 'required|decimal:1',
+            'timeFrom'=>'required',
+            'timeTo'=> 'required' ,  
+        ]);
+        $data['isFulled'] = isset($request->isFulled);
+  
 
         Classe::create($data);
 
@@ -90,14 +84,23 @@ class ClasseController extends Controller
     public function update(Request $request, string $id)
     {
         // dd($request, $id);
-        $data = [
-            'name' => $request->name,
-            'capacity' => $request->capacity,
-            'price' => $request->price,
-            'isFulled'=> isset($request->isFulled),
-            'timeFrom'=> $request->timeFrom,
-            'timeTo'=> $request->timeTo 
-        ];
+        // $data = [
+        //     'name' => $request->name,
+        //     'capacity' => $request->capacity,
+        //     'price' => $request->price,
+        //     'isFulled'=> isset($request->isFulled),
+        //     'timeFrom'=> $request->timeFrom,
+        //     'timeTo'=> $request->timeTo 
+        // ];
+        $data = $request->validate([
+            'name' => 'required|string',
+            'capacity' => 'required|numeric|min:2',
+            'price' => 'required|decimal:1',
+            'timeFrom'=>'required',
+            'timeTo'=> 'required' ,  
+        ]);
+        $data['isFulled'] = isset($request->isFulled);
+        //  dd($data);
         Classe::where('id', $id)->update($data);
         // return"updated";
         return redirect()->route('classes.index');
@@ -125,4 +128,23 @@ class ClasseController extends Controller
         return view('trashed_Classes', compact('classes'));
     
 }
+/**
+     * restore the trashed resource from storage.
+     */
+    public function restore(string $id){
+
+        Classe::where('id', $id)->restore();
+         return redirect()->route('classes.showDeleted');
+        
+    
+}
+/**
+     * force delete resource from storage.
+     */
+    public function forceDeleted(string $id){
+
+        Classe::where('id', $id)->forceDelete();
+        return redirect()->route('classes.showDeleted');       
+    
+}    
 }

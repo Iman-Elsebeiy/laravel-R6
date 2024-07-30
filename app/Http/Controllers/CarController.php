@@ -53,17 +53,18 @@ class CarController extends Controller
         //     'price' => $request->price, 
         //     'published' => isset($request->$published), 
         // ];
+         $data = $request->validate([
+            'carTitle' => 'required|string',
+            'description' => 'required|string|max:1000',
+            'price' => 'required',
+        ]);     
+            $data['published'] = isset($request->published); 
 
-        Car::create([
+        Car::create($data
             //    'key' => 'value'
-            'carTitle' => $request->carTitle,
-            'description' => $request->description, 
-            'price' => $request->price, 
-            'published' => isset($request->published), 
-        ]);
+            );
         // return "Data added successfully";
         return redirect()->route('cars.index');
- 
     }
 
     /**
@@ -98,6 +99,28 @@ class CarController extends Controller
     
 }
     /**
+     * restore the trashed resource from storage.
+     */
+    public function restore(string $id){
+
+        Car::where('id', $id)->restore();
+         return redirect()->route('cars.showDeleted');
+        
+    
+}  
+    /**
+     * force delete resource from storage.
+     */
+    public function forceDeleted(string $id){
+
+        Car::where('id', $id)->forceDelete();
+        return redirect()->route('cars.showDeleted');
+
+        
+    
+}  
+
+    /**
      * Delete the specified resource from storage.
      */ 
     public function destroy(Request $request): RedirectResponse
@@ -114,13 +137,19 @@ class CarController extends Controller
     {
         // dd($request, $id);
 
-        $data =[
+            $data = $request->validate([
+                'carTitle' => 'required|string',
+                'description' => 'required|string|max:1000',
+                'price' => 'required',
+            ]); 
+  
+     $data['published'] = isset($request->published); 
 
-        'carTitle' => $request->carTitle,
-            'description' => $request->description, 
-            'price' => $request->price, 
-            'published' => isset($request->published)
-        ];
+        // 'carTitle' => $request->carTitle,
+        //     'description' => $request->description, 
+        //     'price' => $request->price, 
+        //     'published' => isset($request->published)
+        
         
         Car::where('id', $id)->update($data);
           

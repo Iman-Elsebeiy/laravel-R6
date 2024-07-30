@@ -9,4 +9,4 @@ PATCH request :is used to make partial updates to an existing resource. When you
 so it's a method of modifying resources where the client sends partial data that is to be updated without modifying the entire data.                            
 http patch method is like a UPDATE query in SQL which sets or updates selected columns only and not the whole row.
 
-So, 'PUT' replaces the whole resource, while 'PATCH' updates only the parts you specify.
+So, 'PUT' replaces the whole resource, while PATCH' updates only the parts you specify.
