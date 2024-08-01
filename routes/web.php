@@ -169,6 +169,8 @@ Route::get('cars/trashed', [CarController::class, 'showDeleted'])->name('cars.sh
 Route::patch('cars/{id}/restore', [CarController::class, 'restore'])->name('cars.restore');
 Route::delete('cars/{id}/forceDelete', [CarController::class, 'forceDeleted'])->name('cars.forceDeleted');
 
+Route::get('uploadform', [ExampleController::class,'uploadform']);
+Route::post('upload', [ExampleController::class,'upload'])->name('upload');
 // classes
 Route::get('classes',[ClasseController::class, 'index'])->name('classes.index');
 Route::get('classes/adding',[ClasseController::class, 'create'])->name('classes.create');

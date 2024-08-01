@@ -57,7 +57,15 @@ class CarController extends Controller
             'carTitle' => 'required|string',
             'description' => 'required|string|max:1000',
             'price' => 'required',
-        ]);     
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);  
+        
+            $file_extension = $request->image->getClientOriginalExtension();
+            $file_name = time() . '.' . $file_extension;
+            $path = 'assets/images';
+            $request->image->move($path, $file_name);
+        
+
             $data['published'] = isset($request->published); 
 
         Car::create($data
@@ -141,6 +149,7 @@ class CarController extends Controller
                 'carTitle' => 'required|string',
                 'description' => 'required|string|max:1000',
                 'price' => 'required',
+                'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
             ]); 
   
      $data['published'] = isset($request->published); 
@@ -157,6 +166,7 @@ class CarController extends Controller
 
 
     }
+    
 }
     /**
      * Remove the specified resource from storage.
