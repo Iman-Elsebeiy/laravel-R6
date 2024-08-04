@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Car;
 use Illuminate\Http\RedirectResponse;
+// use App\Traits\Common;
 
 class CarController extends Controller
 {
@@ -61,9 +62,9 @@ class CarController extends Controller
         ]);  
         
             $file_extension = $request->image->getClientOriginalExtension();
-            $file_name = time() . '.' . $file_extension;
+            $car['image'] = time() . '.' . $file_extension;
             $path = 'assets/images';
-            $request->image->move($path, $file_name);
+            $request->image->move($path, $car['image'] );
         
 
             $data['published'] = isset($request->published); 
