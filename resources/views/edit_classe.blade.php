@@ -24,7 +24,7 @@
     <div class="container my-5">
       <div class="bg-light p-5 rounded">
         <h2 class="fw-bold fs-2 mb-5 pb-2">Edit Class</h2>
-        <form action="{{route('classes.update', $classe->id)}}" method="POST" class="px-md-5">
+        <form action="{{route('classes.update', $classe->id)}}" method="POST" class="px-md-5" enctype="multipart/form-data">
           @csrf
           @method('put')
         <div class="form-group mb-3 row">
@@ -54,6 +54,22 @@
               </div>
             </div>
           </div>
+          <div class="form-group mb-3 row">
+            <label for="" class="form-label col-md-2 fw-bold text-md-end"
+            >Image:</label>
+            <div class="col-md-10">
+              <input type="file" name="image" class="form-control" style="padding: 0.7rem;" />
+            </div>
+          </div>
+          <div class="row justify-content-end">
+              <div class="col-md-10">
+                <img
+                  src="{{asset('assets/images/' . $classe['image'])}}"
+                  alt="{{$classe['name']}}"
+                  style="max-width: 150px"
+                />
+              </div>
+            </div>
           <hr>
            <div class="form-group mb-3 row">
             <label for="" class="form-label col-md-2 fw-bold text-md-end"

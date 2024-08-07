@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Car Details</title>
+  <title>Class Details</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -26,8 +26,8 @@
         <div class="card bg-light border-0">
           <div class="row justify-content-center">
             <div class="col-lg-4 col-md-6 col-10 position-relative overflow-hidden">
-              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROYjj94a1EKPObxDQCbqSdwmIbkhQt5Np5lQ&s"
-                alt="" class="card-img"
+              <img src="{{asset('assets/images/'.$classe->image)}}"
+                alt="{{$classe['name']}}" class="card-img"
                 style="position: absolute; margin: auto; top: 50%; transform: translateY(-50%); width: 100%;height: 100%; object-fit: cover;" />
             </div>
             <div class="col-lg-8 col-md-6 col-12 card-body">
@@ -48,7 +48,7 @@
                   <span class="fw-bold">Capacity : </span>{{$classe['capacity']}} students</p>
               </div>
               <div class="col-md-4">
-                    <span class="card_text">Time : </span>{{date("h:i", strtotime($classe['timeFrom']))}} {{"-"}}{{date("h:i A", strtotime($classe['timeTo']))}}</p>
+                    <span class="card_text">Time : </span>{{date("h:i", strtotime($classe['timeFrom']))}} - {{date("h:i A", strtotime($classe['timeTo']))}}</p>
                   </div>
               <div class="text-md-end">
                 <a href="{{route('classes.index')}}" class="btn mt-4 btn-primary text-white fs-5 fw-bold border-0 py-2 px-md-5">

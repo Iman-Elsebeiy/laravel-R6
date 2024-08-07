@@ -24,9 +24,9 @@
     <div class="container my-5">
       <div class="bg-light p-5 rounded">
         <h2 class="fw-bold fs-2 mb-5 pb-2">Add Class</h2>
-        <form action="{{route('classes.store')}}" method="POST" class="px-md-5">
+        <form action="{{route('classes.store')}}" method="POST" class="px-md-5" enctype="multipart/form-data">
           @csrf
-        <div class="form-group mb-3 row">
+          <div class="form-group mb-3 row">
             <label for="" class="form-label col-md-2 fw-bold text-md-end">Classe Name:</label>
             <div class="col-md-10">
               <input type="text" placeholder="Art and Drawing" class="form-control py-2" name="name"/>
@@ -68,6 +68,20 @@
               </div>
             </div>
           </div>
+          <hr>
+            <div class="form-group mb-3 row">
+              <label for="" class="form-label col-md-2 fw-bold text-md-end"
+                >Image:</label
+              >
+              <div class="col-md-10">
+                <input
+                  type="file"
+                  name="image"
+                  class="form-control"
+                  style="padding: 0.7rem;"
+                />
+              </div>
+            </div>
           <div class="form-group mb-3 row">
             <label for="" class="form-label col-md-2 fw-bold text-md-end">Is Fulled:</label>
             <div class="col-md-10">

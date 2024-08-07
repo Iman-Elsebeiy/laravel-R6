@@ -5,10 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Car;
 use Illuminate\Http\RedirectResponse;
-// use App\Traits\Common;
+use App\Traits\Common;
 
 class CarController extends Controller
 {
+    use Common;
     /**
      * Display a listing of the resource.
      */
@@ -61,13 +62,9 @@ class CarController extends Controller
             'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);  
         
-            $file_extension = $request->image->getClientOriginalExtension();
-            $car['image'] = time() . '.' . $file_extension;
-            $path = 'assets/images';
-            $request->image->move($path, $car['image'] );
-        
 
             $data['published'] = isset($request->published); 
+            $data['image'] = $this->uploadFile($request->image, 'assets\images'); 
 
         Car::create($data
             //    'key' => 'value'
@@ -150,11 +147,14 @@ class CarController extends Controller
                 'carTitle' => 'required|string',
                 'description' => 'required|string|max:1000',
                 'price' => 'required',
-                'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+                'image' => 'sometimes|image|mimes:jpeg,png,jpg,gif|max:2048',
             ]); 
   
-     $data['published'] = isset($request->published); 
-
+     $data['published'] = isset($request->published);
+     
+     if ($request->hasFile('image')) {
+        $data['image'] = $this->uploadFile($request->image, 'assets/images');
+    }
         // 'carTitle' => $request->carTitle,
         //     'description' => $request->description, 
         //     'price' => $request->price, 

@@ -5,9 +5,12 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Classe;
 use Illuminate\Http\RedirectResponse;
+use App\Traits\Common;
 
 class ClasseController extends Controller
 {
+    use Common;
+
     /**
      * Display a listing of the resource.
      */
@@ -35,13 +38,16 @@ class ClasseController extends Controller
         //  validation of the data
         $data = $request->validate([
             'name' => 'required|string',
-            'capacity' => 'required|numeric|min:2',
+            'capacity' => 'required|',
             'price' => 'required|decimal:1',
             'timeFrom'=>'required',
-            'timeTo'=> 'required' ,  
+            'timeTo'=> 'required' ,
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+  
         ]);
         $data['isFulled'] = isset($request->isFulled);
-  
+        $data['image'] = $this->uploadFile($request->image, 'assets\images'); 
+
 
         Classe::create($data);
 
@@ -97,9 +103,14 @@ class ClasseController extends Controller
             'capacity' => 'required|numeric|min:2',
             'price' => 'required|decimal:1',
             'timeFrom'=>'required',
-            'timeTo'=> 'required' ,  
+            'timeTo'=> 'required' , 
+            'image' => 'sometimes|mimes:jpeg,png,jpg,gif|max:2048',
+ 
         ]);
         $data['isFulled'] = isset($request->isFulled);
+        if ($request->hasFile('image')) {
+            $data['image'] = $this->uploadFile($request->image, 'assets/images');
+        }
         //  dd($data);
         Classe::where('id', $id)->update($data);
         // return"updated";
