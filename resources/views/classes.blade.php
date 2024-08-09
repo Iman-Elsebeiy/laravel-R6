@@ -33,6 +33,8 @@
               <th scope="col">Is fulled</th>
               <th scope="col">   Time </th>
               <th scope="col">Edite</th>
+              <th scope="col">Show</th>
+              <th scope="col">Delete</th>
             </tr>
           </thead>
           <tbody>
@@ -41,10 +43,16 @@
               <td scope="row">{{$classe['name']}}</td>
               <td>{{$classe['capacity']}}</td>
               <td> {{$classe['price'] }} $ </td>
-              <td>{{($classe['isFulled'] == 1) ? "Yes" : "No"}}</td>
+              <td>{{$classe->isFulled? 'yes':'no'}}</td>
               <td>{{date("h:i", strtotime($classe['timeFrom']))}} {{"-"}}{{date("h:i A", strtotime($classe['timeTo']))}}</td>
               <td><a href="{{route('classes.edit', $classe['id'])}}">✒️</a></td>
-
+              <td><a href="{{route('classes.show', $classe['id'])}}">Show</a></td>
+              <td><form action="{{ route('classes.destroy') }}" method="post">
+              @csrf
+              @method('delete')
+              <input type="hidden" name="id" value="{{$classe->id}}">
+              <input type="submit" value="delete">
+              </form></td>
             </tr>
             @endforeach
           </tbody>

@@ -24,8 +24,9 @@
     <div class="container my-5">
       <div class="bg-light p-5 rounded">
         <h2 class="fw-bold fs-2 mb-5 pb-2">Edit Car</h2>
-        <form action="" method="POST" class="px-md-5">
-         @csrf 
+        <form action="{{route('cars.update', $car->id)}}" method="POST" class="px-md-5" enctype="multipart/form-data">
+         @csrf
+         @method('put') 
         <div class="form-group mb-3 row">
             <label for="" class="form-label col-md-2 fw-bold text-md-end">Car Title:</label>
             <div class="col-md-10">
@@ -44,6 +45,15 @@
               <textarea name="description" id="" cols="30" rows="5" class="form-control py-2">{{$car->description}}</textarea>
             </div>
           </div>
+          <div class="row justify-content-end">
+              <div class="col-md-10">
+                <img
+                  src="{{asset('assets/images/' . $car['image'])}}"
+                  alt="{{$car['carTitle']}}"
+                  style="max-width: 150px"
+                />
+              </div>
+            </div>
           <hr>
           <div class="form-group mb-3 row">
             <label for="" class="form-label col-md-2 fw-bold text-md-end">Published:</label>

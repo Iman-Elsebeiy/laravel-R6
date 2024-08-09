@@ -4,8 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Car;
+use Illuminate\Http\RedirectResponse;
+use App\Traits\Common;
+
 class CarController extends Controller
 {
+    use Common;
     /**
      * Display a listing of the resource.
      */
@@ -51,15 +55,22 @@ class CarController extends Controller
         //     'price' => $request->price, 
         //     'published' => isset($request->$published), 
         // ];
+         $data = $request->validate([
+            'carTitle' => 'required|string',
+            'description' => 'required|string|max:1000',
+            'price' => 'required',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);  
+        
 
-        Car::create([
+            $data['published'] = isset($request->published); 
+            $data['image'] = $this->uploadFile($request->image, 'assets\images'); 
+
+        Car::create($data
             //    'key' => 'value'
-            'carTitle' => $request->carTitle,
-            'description' => $request->description, 
-            'price' => $request->price, 
-            'published' => isset($request->published), 
-        ]);
-        return "Data added successfully"; 
+            );
+        // return "Data added successfully";
+        return redirect()->route('cars.index');
     }
 
     /**
@@ -68,7 +79,11 @@ class CarController extends Controller
     public function show(string $id)
     {
         //
+        $car = Car::findOrFail($id);
+
+        return view('car_details', compact('car'));
     }
+    
 
     /**
      * Show the form for editing the specified resource.
@@ -79,20 +94,89 @@ class CarController extends Controller
 
         return view('edit_car', compact('car'));
     }
+    /**
+     * Show the deleted resource from storage.
+     */
+    public function showDeleted(){
+
+        $cars = Car::onlyTrashed()->get();
+        
+        return view('trashed_cars', compact('cars'));
+    
+}
+    /**
+     * restore the trashed resource from storage.
+     */
+    public function restore(string $id){
+
+        Car::where('id', $id)->restore();
+         return redirect()->route('cars.showDeleted');
+        
+    
+}  
+    /**
+     * force delete resource from storage.
+     */
+    public function forceDeleted(string $id){
+
+        Car::where('id', $id)->forceDelete();
+        return redirect()->route('cars.showDeleted');
+
+        
+    
+}  
+
+    /**
+     * Delete the specified resource from storage.
+     */ 
+    public function destroy(Request $request): RedirectResponse
+    {
+       $id = $request->id;
+       Car::where('id', $id)->delete();
+       return redirect('cars');
+    }
 
     /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, string $id)
     {
-        //
-    }
+        // dd($request, $id);
 
+            $data = $request->validate([
+                'carTitle' => 'required|string',
+                'description' => 'required|string|max:1000',
+                'price' => 'required',
+                'image' => 'sometimes|image|mimes:jpeg,png,jpg,gif|max:2048',
+            ]); 
+  
+     $data['published'] = isset($request->published);
+     
+     if ($request->hasFile('image')) {
+        $data['image'] = $this->uploadFile($request->image, 'assets/images');
+    }
+        // 'carTitle' => $request->carTitle,
+        //     'description' => $request->description, 
+        //     'price' => $request->price, 
+        //     'published' => isset($request->published)
+        
+        
+        Car::where('id', $id)->update($data);
+          
+        return redirect()->route('cars.index');
+
+
+    }
+    
+}
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
-    {
-        //
-    }
-}
+    // public function destroy(string $id)
+    // {
+    //     //soft delete
+    //     Car::where('id', $id)->delete();
+    //     return redirect()->route('cars.index');
+
+    // }
+           

@@ -24,8 +24,9 @@
     <div class="container my-5">
       <div class="bg-light p-5 rounded">
         <h2 class="fw-bold fs-2 mb-5 pb-2">Edit Class</h2>
-        <form action="" method="POST" class="px-md-5">
+        <form action="{{route('classes.update', $classe->id)}}" method="POST" class="px-md-5" enctype="multipart/form-data">
           @csrf
+          @method('put')
         <div class="form-group mb-3 row">
             <label for="" class="form-label col-md-2 fw-bold text-md-end">Classe Name:</label>
             <div class="col-md-10">
@@ -53,13 +54,30 @@
               </div>
             </div>
           </div>
+          <div class="form-group mb-3 row">
+            <label for="" class="form-label col-md-2 fw-bold text-md-end"
+            >Image:</label>
+            <div class="col-md-10">
+              <input type="file" name="image" class="form-control" style="padding: 0.7rem;" />
+            </div>
+          </div>
+          <div class="row justify-content-end">
+              <div class="col-md-10">
+                <img
+                  src="{{asset('assets/images/' . $classe['image'])}}"
+                  alt="{{$classe['name']}}"
+                  style="max-width: 150px"
+                />
+              </div>
+            </div>
           <hr>
            <div class="form-group mb-3 row">
-            <label for="" class="form-label col-md-2 fw-bold text-md-end">Is Fulled:</label>
+            <label for="" class="form-label col-md-2 fw-bold text-md-end"
+            >Is Fulled:</label>
             <div class="col-md-10">
-              <input type="checkbox" class="form-check-input" style="padding: 0.7rem;" @checked($classe->isFulled) />
+              <input type="checkbox" name="isFulled" class="form-check-input" style="padding: 0.7rem;" @checked($classe->isFulled) />
             </div>
-           </div>
+          </div>
            <div class="text-md-end">
             <button class="btn mt-4 btn-secondary text-white fs-5 fw-bold border-0 py-2 px-md-5">
               Edit Class

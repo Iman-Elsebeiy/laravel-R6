@@ -4,8 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Classe;
+use Illuminate\Http\RedirectResponse;
+use App\Traits\Common;
+
 class ClasseController extends Controller
 {
+    use Common;
+
     /**
      * Display a listing of the resource.
      */
@@ -30,35 +35,34 @@ class ClasseController extends Controller
     public function store(Request $request)
     {
         //  dd($request);
-
-        // $name = 'Art and Drawing';
-        // $capacity =33; 
-        // $price = 12;
-        // $isFulled = true;
-        // $timeFrom = 1;
-        // $timeTo = 1;
-        $data = [
-            'name' => $request->name,
-            'capacity' => $request->capacity,
-            'price' => $request->price,
-            'isFulled'=> isset($request->isFulled),
-            'timeFrom'=> $request->timeFrom,
-            'timeTo'=> $request->timeTo 
-        ];
+        //  validation of the data
+        $data = $request->validate([
+            'name' => 'required|string',
+            'capacity' => 'required|',
+            'price' => 'required|decimal:1',
+            'timeFrom'=>'required',
+            'timeTo'=> 'required' ,
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+  
+        ]);
+        $data['isFulled'] = isset($request->isFulled);
+        $data['image'] = $this->uploadFile($request->image, 'assets\images'); 
 
 
         Classe::create($data);
 
-
-        return "Data added successfully"; 
-           }
+        // return "Data added successfully";
+        return redirect()->route('classes.index');
+ 
+    } 
 
     /**
      * Display the specified resource.
      */
     public function show(string $id)
     {
-        //
+        $classe = Classe::findOrFail($id);
+        return view('classe_details', compact('classe'));
     }
 
     /**
@@ -71,20 +75,87 @@ class ClasseController extends Controller
         return view('edit_classe', compact ('classe'));
 
     }
-
+    /**
+     * Delete the specified resource from storage.
+     */ 
+    public function destroy(Request $request): RedirectResponse
+    {
+       $id = $request->id;
+       Classe::where('id', $id)->delete();
+       return redirect('classes');
+    }
     /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, string $id)
     {
-        //
+        // dd($request, $id);
+        // $data = [
+        //     'name' => $request->name,
+        //     'capacity' => $request->capacity,
+        //     'price' => $request->price,
+        //     'isFulled'=> isset($request->isFulled),
+        //     'timeFrom'=> $request->timeFrom,
+        //     'timeTo'=> $request->timeTo 
+        // ];
+        $data = $request->validate([
+            'name' => 'required|string',
+            'capacity' => 'required|numeric|min:2',
+            'price' => 'required|decimal:1',
+            'timeFrom'=>'required',
+            'timeTo'=> 'required' , 
+            'image' => 'sometimes|mimes:jpeg,png,jpg,gif|max:2048',
+ 
+        ]);
+        $data['isFulled'] = isset($request->isFulled);
+        if ($request->hasFile('image')) {
+            $data['image'] = $this->uploadFile($request->image, 'assets/images');
+        }
+        //  dd($data);
+        Classe::where('id', $id)->update($data);
+        // return"updated";
+        return redirect()->route('classes.index');
+
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
-    {
-        //
-    }
+    // public function destroy(string $id)
+    // {
+    //     Classe::where('id', $id)->delete();
+    //     return redirect()->route('classes.index');
+
+
+    // }
+
+    /**
+     * Show the deleted resource from storage.
+     */
+    public function showDeleted(){
+
+        $classes = Classe::onlyTrashed()->get();
+        
+        return view('trashed_Classes', compact('classes'));
+    
+}
+/**
+     * restore the trashed resource from storage.
+     */
+    public function restore(string $id){
+
+        Classe::where('id', $id)->restore();
+         return redirect()->route('classes.showDeleted');
+        
+    
+}
+/**
+     * force delete resource from storage.
+     */
+    public function forceDeleted(string $id){
+
+        Classe::where('id', $id)->forceDelete();
+        return redirect()->route('classes.showDeleted');       
+    
+}    
 }
