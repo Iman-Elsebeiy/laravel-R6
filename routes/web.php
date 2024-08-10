@@ -173,12 +173,14 @@ Route::delete('cars/{id}/forceDelete', [CarController::class, 'forceDeleted'])->
 Route::get('uploadform', [ExampleController::class,'uploadform']);
 Route::post('upload', [ExampleController::class,'upload'])->name('upload');
 Route::get('index', [ExampleController::class,'fashionIndex']);
+Route::get('about', [ExampleController::class,'about']);
+Route::get('product', [ExampleController::class,'product']);
 
 // classes
 Route::get('classes',[ClasseController::class, 'index'])->name('classes.index');
 Route::get('classes/adding',[ClasseController::class, 'create'])->name('classes.create');
 Route::post('classes',[ClasseController::class, 'store'])->name('classes.store');
-Route::get('classes/{car}/edit',[ClasseController::class, 'edit'])->name('classes.edit');
+Route::get('classes/{id}/edit',[ClasseController::class, 'edit'])->name('classes.edit');
 Route::put('classes/{id}',[ClasseController::class, 'update'])->name('classes.update');
 Route::get('classes/{id}/show',[ClasseController::class, 'show'])->name('classes.show');
 Route::delete('delete',[ClasseController::class, 'destroy'])->name('classes.destroy');
@@ -190,6 +192,14 @@ Route::delete('classes/{id}/forceDelete', [ClasseController::class, 'forceDelete
 // fashion
 Route::prefix('products')->group(function(){
     Route::get('fashion', [ProductController::class,'index'])->name('products.index');
+    Route::get('', [ProductController::class,'product_index'])->name('products.proindex');
     Route::get('adding', [ProductController::class,'create'])->name('products.create');
     Route::post('', [ProductController::class,'store'])->name('products.store');
+    Route::get('/{id}/edit', [ProductController::class,'edit'])->name('products.edit');
+    Route::put('/{id}', [ProductController::class,'update'])->name('products.update');
+    Route::get('/{id}/show', [ProductController::class,'show'])->name('products.show');
+    Route::delete('/delete', [ProductController::class,'destroy'])->name('products.destroy');
+    Route::get('trashed', [ProductController::class,'showDeleted'])->name('products.showDeleted');
+    Route::patch('/{id}/restore', [ProductController::class,'restore'])->name('products.restore');
+    Route::delete('/{id}/forceDelete', [ProductController::class,'forceDeleted'])->name('products.forceDeleted');
 });

@@ -64,7 +64,7 @@ class CarController extends Controller
         
 
             $data['published'] = isset($request->published); 
-            $data['image'] = $this->uploadFile($request->image, 'assets\images'); 
+            $data['image'] = $this->uploadFile($request->image, 'assets/images'); 
 
         Car::create($data
             //    'key' => 'value'

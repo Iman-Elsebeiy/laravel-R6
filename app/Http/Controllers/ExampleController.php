@@ -9,6 +9,15 @@ class ExampleController extends Controller
    public function login(){
         return view('login');
     }
+
+    public function product(){
+        return view('products');
+    }
+    
+    public function about(){
+        return view('about');
+    }
+    
   
 //1. contact us page
     function contact(){
