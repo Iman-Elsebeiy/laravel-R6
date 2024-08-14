@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Phone;
+use App\Models\Student;
+use Illuminate\support\Facades\DB;
 
 class ExampleController extends Controller
 {
@@ -46,4 +49,16 @@ class ExampleController extends Controller
     // public function fashionIndex() {
     //     return view('fashion_index');
     // }
+    function test(){
+        // dd(Student::find(6)->phone);
+        // dd(Student::find(6)?->phone->phone_number);
+        
+        // طريقة الQUERY
+        DD(
+        DB::table('students')
+            ->join('phones', 'phones.id', '=', 'students.phone_id')
+            ->where('students.id', '=', 6)
+            ->first()
+        ); 
+    }
 }

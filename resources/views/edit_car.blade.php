@@ -45,10 +45,28 @@
               <textarea name="description" id="" cols="30" rows="5" class="form-control py-2">{{$car->description}}</textarea>
             </div>
           </div>
+          <div class="form-group mb-3 row">
+            <label for="" class="form-label col-md-2 fw-bold text-md-end">Category:</label>
+            <div class="col-md-10">
+              <select name="category_id" id="" class="form-control">
+                <option value="">Select category</option>
+                 @foreach($categories as $category)
+                 <option value="{{$category->id}}" {{$category->id == $car['category_id'] ? "selected" : ""}}>{{$category->category_name}}</option>
+                @endforeach
+              </select>
+            </div>
+          </div>
+          <div class="form-group mb-3 row">
+            <label for="" class="form-label col-md-2 fw-bold text-md-end"
+            >Image:</label>
+            <div class="col-md-10">
+              <input type="file" name="image" class="form-control" style="padding: 0.7rem;" />
+            </div>
+          </div>
           <div class="row justify-content-end">
               <div class="col-md-10">
                 <img
-                  src="{{asset('assets/images/' . $car['image'])}}"
+                  src="{{asset('assets/images/car/' . $car['image'])}}"
                   alt="{{$car['carTitle']}}"
                   style="max-width: 150px"
                 />

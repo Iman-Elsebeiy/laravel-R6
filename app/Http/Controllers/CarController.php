@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Car;
+use App\Models\Category;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\DB;
 use App\Traits\Common;
 
 class CarController extends Controller
@@ -18,8 +20,16 @@ class CarController extends Controller
         //get data from Database
         // return view all cars data
         // sql---> select * from cars
+       
+        // $data = DB::table('cars')
+        // ->join('categories', 'category.id', '=', 'cars.category_id')
+        // ->select('category.category', 'categories.*')
+        // ->where('categorys.id', '=', 'cars.category_id')
+        // ->get();
+       
         $cars = Car::get();
-        
+        // $categories = Category::select('id','category_name')->get();
+
         return view('cars', compact('cars'));
 
     }
@@ -29,7 +39,11 @@ class CarController extends Controller
      */
     public function create()
     {
-        return view('add_car');
+
+        $categories = Category::select('id','category_name')->get();
+        // dd($categories);
+        // return view('add_car');
+        return view('add_car', compact('categories'));
     }
 
     /**
@@ -59,12 +73,13 @@ class CarController extends Controller
             'carTitle' => 'required|string',
             'description' => 'required|string|max:1000',
             'price' => 'required',
+            'category_id' => 'required|exists:categories,id',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);  
         
 
             $data['published'] = isset($request->published); 
-            $data['image'] = $this->uploadFile($request->image, 'assets/images'); 
+            $data['image'] = $this->uploadFile($request->image, 'assets/images/car/'); 
 
         Car::create($data
             //    'key' => 'value'
@@ -91,8 +106,8 @@ class CarController extends Controller
     public function edit(string $id)
     {
         $car = Car::findOrFail($id);
-
-        return view('edit_car', compact('car'));
+        $categories = Category::select('id','category_name')->get();
+        return view('edit_car', compact('car','categories'));
     }
     /**
      * Show the deleted resource from storage.
@@ -147,13 +162,14 @@ class CarController extends Controller
                 'carTitle' => 'required|string',
                 'description' => 'required|string|max:1000',
                 'price' => 'required',
+                'category_id' => 'required|exists:categories,id',
                 'image' => 'sometimes|image|mimes:jpeg,png,jpg,gif|max:2048',
             ]); 
   
      $data['published'] = isset($request->published);
      
      if ($request->hasFile('image')) {
-        $data['image'] = $this->uploadFile($request->image, 'assets/images');
+        $data['image'] = $this->uploadFile($request->image, 'assets/images/car/');
     }
         // 'carTitle' => $request->carTitle,
         //     'description' => $request->description, 

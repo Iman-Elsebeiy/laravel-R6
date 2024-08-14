@@ -150,6 +150,7 @@ Route::post('data', function(){
 //     return view("contact");
 // });
 Route::get('contact', [ExampleController::class, 'contact']);
+Route::get('test', [ExampleController::class, 'test']);
 
                                                 // method
 Route::post('submit', [ExampleController::class,'submit'])->name('submit');
@@ -163,6 +164,7 @@ Route::get('cars',[CarController::class, 'index'])->name('cars.index');
 Route::get('cars/create',[CarController::class, 'create'])->name('cars.create');
 Route::post('cars',[CarController::class, 'store'])->name('cars.store');
 Route::get('cars/{id}/edit', [CarController::class, 'edit'])->name('cars.edit');
+
 Route::put('cars/{id}', [CarController::class, 'update'])->name('cars.update');
 Route::get('cars/{id}/show', [CarController::class, 'show'])->name('cars.show');
 Route::delete('cars/delete', [CarController::class, 'destroy'])->name('cars.destroy');

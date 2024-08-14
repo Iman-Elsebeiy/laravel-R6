@@ -26,7 +26,7 @@
         <div class="card bg-light border-0">
           <div class="row justify-content-center">
             <div class="col-lg-4 col-md-6 col-10 position-relative overflow-hidden">
-              <img src="{{asset('assets/images/'.$car->image)}}"
+              <img src="{{asset('assets/images/car/'.$car->image)}}"
                 alt="{{$car['carTitle']}}" class="card-img"
                 style="position: absolute; margin: auto; top: 50%; transform: translateY(-50%); width: 100%;height: 100%; object-fit: cover;" />
             </div>
@@ -34,6 +34,10 @@
               <div class="mb-4 text-center py-2">
                 <h2 class="fw-bold bg-light card-header">{{$car['carTitle']}}</h2>
               </div>
+              <div class="mb-4">
+                  <p class="card-text">
+                    <span class="fw-bold">Category : </span> {{$car['category_name']}}</p>
+                </div>
               <div class="mb-4">
                 <p class="card-text">
                   <span class="fw-bold">Price : </span> {{$car['price']}} $

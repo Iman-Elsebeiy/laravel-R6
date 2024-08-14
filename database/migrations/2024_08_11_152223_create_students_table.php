@@ -11,15 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        // just discription not database
-        Schema::create('cars', function (Blueprint $table) {
+        Schema::create('students', function (Blueprint $table) {
             $table->id();
-            $table->string('carTitle', 100);
-            $table->text('description');
-            $table->float('price');
-            $table->string('image')->nullable();
-            $table->boolean('published');
-            $table->foreignId('category_id')->constrained('categories');
+            // $table->id();
+            $table->string('name', 100);
+            $table->string('class');
+            $table->string('address',20);
+            $table->foreignId('phone_id')->constrained('phones');
             $table->softDeletes();
             $table->timestamps();
         });
@@ -30,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('cars');
+        Schema::dropIfExists('students');
     }
 };

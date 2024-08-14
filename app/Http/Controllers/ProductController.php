@@ -52,7 +52,7 @@ class ProductController extends Controller
         ]); 
 
           $data['published'] = isset($request->published); 
-          $data['image'] = $this->uploadFile($request->image, 'assets/images'); 
+          $data['image'] = $this->uploadFile($request->image, 'assets/images/product/'); 
 
          Product::create($data);
         //    return "Data added successfully";
@@ -96,7 +96,7 @@ class ProductController extends Controller
         $data['published'] = isset($request->published);
 
         if ($request->hasFile('image')) {
-            $data['image'] = $this->uploadFile($request->image, 'assets/images/product');
+            $data['image'] = $this->uploadFile($request->image, 'assets/images/product/');
         }
         //  dd($data);
         Product::where('id', $id)->update($data);

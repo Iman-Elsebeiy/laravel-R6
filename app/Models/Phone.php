@@ -6,19 +6,15 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Car extends Model
+
+class Phone extends Model
 {
     use HasFactory, SoftDeletes;
-    
     protected $fillable = [
-        'carTitle',
-        'description',
-        'price',
-        'image',
-        'published',
-        'category_id'
+        'phone_number'
     ];
-    public function category() {
-        return $this->belongsTo(Category::class);
+
+    public function student() {
+        return $this->hasOne(Student::class);
     }
 }
