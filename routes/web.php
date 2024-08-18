@@ -7,6 +7,7 @@ use App\Http\Controllers\ExampleController;
 use App\Http\Controllers\CarController;
 use App\Http\Controllers\ClasseController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ContactController;
 
 Route::get('login', [ExampleController::class, 'login']);
 Route::get('cv', [ExampleController::class, 'cv']);
@@ -149,11 +150,18 @@ Route::post('data', function(){
 // Route::get('contact', function(){
 //     return view("contact");
 // });
+
+// contact us
+Route::prefix('contactus')->middleware('verified')->group(function(){
+Route::get('', [ContactController::class, 'index']);
+Route::post('/submit', [ContactController::class, 'submit'])->name('submit');
+});
+
 Route::get('contact', [ExampleController::class, 'contact']);
 Route::get('test', [ExampleController::class, 'test']);
 
                                                 // method
-Route::post('submit', [ExampleController::class,'submit'])->name('submit');
+
 
 // Route::post('submit', function(){
 //     return "submit";
@@ -192,7 +200,7 @@ Route::delete('classes/{id}/forceDelete', [ClasseController::class, 'forceDelete
 
 
 // fashion
-Route::prefix('products')->group(function(){
+Route::prefix('products')->middleware('verified')->group(function(){
     Route::get('fashion', [ProductController::class,'index'])->name('products.index');
     Route::get('', [ProductController::class,'product_index'])->name('products.proindex');
     Route::get('adding', [ProductController::class,'create'])->name('products.create');
@@ -205,3 +213,7 @@ Route::prefix('products')->group(function(){
     Route::patch('/{id}/restore', [ProductController::class,'restore'])->name('products.restore');
     Route::delete('/{id}/forceDelete', [ProductController::class,'forceDeleted'])->name('products.forceDeleted');
 });
+
+Auth::routes(['verify' => true]);
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

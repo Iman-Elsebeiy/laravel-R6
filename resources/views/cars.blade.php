@@ -41,7 +41,7 @@
             @foreach($cars as $car)
             <tr>
               <td scope="row">{{$car['carTitle']}}</td>
-              <td scope="row">{{$car['category_id']}}</td>
+              <td scope="row">{{$car->category['category_name']}}</td>
               <td>{{$car['price']}}</td>
               <td>{{Str::limit($car['description'],20, '...')}}</td>
               <td>{{$car->published? 'Yes':'No'}}</td>

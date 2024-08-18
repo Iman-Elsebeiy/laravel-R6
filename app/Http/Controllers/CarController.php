@@ -27,7 +27,7 @@ class CarController extends Controller
         // ->where('categorys.id', '=', 'cars.category_id')
         // ->get();
        
-        $cars = Car::get();
+        $cars = Car::with('category')->get();
         // $categories = Category::select('id','category_name')->get();
 
         return view('cars', compact('cars'));
@@ -94,8 +94,10 @@ class CarController extends Controller
     public function show(string $id)
     {
         //
-        $car = Car::findOrFail($id);
-
+        // $car = Car::findOrFail($id);
+        // relation name not table
+        $car = Car::with('category')->findOrFail($id);
+        //  dd($car);
         return view('car_details', compact('car'));
     }
     
