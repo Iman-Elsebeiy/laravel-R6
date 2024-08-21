@@ -4,17 +4,40 @@
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <title>Laravel</title>
+   <style>
+     code{
+      color: rgb(241, 110, 110);
+     }
+     h1{
+      text-align: center;
+      color: rgb(230, 66, 66);
+     } 
+     h2{
+      color: rgb(99, 40, 40);
+     } 
+     body{
+      background-image:url('../public/assets/images/laravel-logo.jpg') ;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: cover;
+      background-color: aqua;
+      
+     }
+
+   </style>
+
 </head>
-<body>
-<h1 align="center" style="color: rgb(139, 63, 63);">Middleware in Laravel:</h1>
- <div>
+<body class="body">
+   <div>
+    <h1>Middleware in Laravel:</h1>
+ 
    <p>- Middleware are layers of code that you can use to inspect and manipulate HTTP requests before they reach your controllers and actions.
    <br>- They can also modify the response before it is sent back to the user.</p>
- </div>
+   </div>
 
  <div>
    <h2>Common Use Cases:</h2>
-   <br>- Authentication: Ensuring that the user is logged in before accessing certain routes.
+      - Authentication: Ensuring that the user is logged in before accessing certain routes.
    <br>- Logging: Logging every request to the application.
    <br>- CORS: Handling Cross-Origin Resource Sharing headers.
    <br>- Rate Limiting: Limiting the number of requests a user can make to the application within a certain time frame.</p>
@@ -108,7 +131,7 @@
           </code>
 
 
-        <p>In this example, if the user's age is less than or equal to 18, they are redirected to the home page. Otherwise, the request is passed further down the line to the next middleware or the controller.</p>
+        <p style="color: aliceblue;">In this example, if the user's age is less than or equal to 18, they are redirected to the home page. Otherwise, the request is passed further down the line to the next middleware or the controller.</p>
 
                </p>
    </div>
