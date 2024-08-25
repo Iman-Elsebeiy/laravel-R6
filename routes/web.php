@@ -9,7 +9,11 @@ use App\Http\Controllers\ClasseController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ContactController;
 
+use function Pest\Laravel\session;
+
 Route::get('login', [ExampleController::class, 'login']);
+    
+
 Route::get('cv', [ExampleController::class, 'cv']);
 
 
@@ -169,7 +173,17 @@ Route::get('test', [ExampleController::class, 'test']);
 
 // cars table
 Route::get('cars',[CarController::class, 'index'])->name('cars.index');
-Route::get('cars/create',[CarController::class, 'create'])->name('cars.create');
+
+
+Route::group(
+    [
+        'prefix' => LaravelLocalization::setLocale(),
+        'middleware' => [ 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath' ]
+    ], function(){ 
+        Route::get('cars/create',[CarController::class, 'create'])->name('cars.create');
+
+    });
+    
 Route::post('cars',[CarController::class, 'store'])->name('cars.store');
 Route::get('cars/{id}/edit', [CarController::class, 'edit'])->name('cars.edit');
 
