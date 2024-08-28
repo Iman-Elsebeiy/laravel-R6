@@ -7,8 +7,13 @@ use App\Http\Controllers\ExampleController;
 use App\Http\Controllers\CarController;
 use App\Http\Controllers\ClasseController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ContactController;
+
+use function Pest\Laravel\session;
 
 Route::get('login', [ExampleController::class, 'login']);
+    
+
 Route::get('cv', [ExampleController::class, 'cv']);
 
 
@@ -130,7 +135,7 @@ Route::get('cv', function(){
 // OR
 Route::view('CV','CV');
 
-// link
+// link... مهم
 Route::get('link', function(){
     $url = route('w');
     return "<a href='$url'>Go to welcom</a>";
@@ -138,6 +143,9 @@ Route::get('link', function(){
 Route::get('welcom', function(){
     return('welcom to laravel');
 })->name('w');
+
+
+
 #method ..... 
 Route::get('login',[ExampleController::class,'login']);
 
@@ -149,10 +157,18 @@ Route::post('data', function(){
 // Route::get('contact', function(){
 //     return view("contact");
 // });
+
+// contact us
+Route::prefix('contactus')->middleware('verified')->group(function(){
+Route::get('', [ContactController::class, 'index']);
+Route::post('/submit', [ContactController::class, 'submit'])->name('submit');
+});
+
 Route::get('contact', [ExampleController::class, 'contact']);
+Route::get('test', [ExampleController::class, 'test']);
 
                                                 // method
-Route::post('submit', [ExampleController::class,'submit'])->name('submit');
+
 
 // Route::post('submit', function(){
 //     return "submit";
@@ -160,9 +176,20 @@ Route::post('submit', [ExampleController::class,'submit'])->name('submit');
 
 // cars table
 Route::get('cars',[CarController::class, 'index'])->name('cars.index');
-Route::get('cars/create',[CarController::class, 'create'])->name('cars.create');
+
+
+Route::group(
+    [
+        'prefix' => LaravelLocalization::setLocale(),
+        'middleware' => [ 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath' ]
+    ], function(){ 
+        Route::get('cars/create',[CarController::class, 'create'])->name('cars.create');
+
+    });
+    
 Route::post('cars',[CarController::class, 'store'])->name('cars.store');
 Route::get('cars/{id}/edit', [CarController::class, 'edit'])->name('cars.edit');
+
 Route::put('cars/{id}', [CarController::class, 'update'])->name('cars.update');
 Route::get('cars/{id}/show', [CarController::class, 'show'])->name('cars.show');
 Route::delete('cars/delete', [CarController::class, 'destroy'])->name('cars.destroy');
@@ -173,12 +200,18 @@ Route::delete('cars/{id}/forceDelete', [CarController::class, 'forceDeleted'])->
 Route::get('uploadform', [ExampleController::class,'uploadform']);
 Route::post('upload', [ExampleController::class,'upload'])->name('upload');
 Route::get('index', [ExampleController::class,'fashionIndex']);
+Route::get('about', [ExampleController::class,'about']);
+Route::get('product', [ExampleController::class,'product']);
+
+
+
+
 
 // classes
 Route::get('classes',[ClasseController::class, 'index'])->name('classes.index');
 Route::get('classes/adding',[ClasseController::class, 'create'])->name('classes.create');
 Route::post('classes',[ClasseController::class, 'store'])->name('classes.store');
-Route::get('classes/{car}/edit',[ClasseController::class, 'edit'])->name('classes.edit');
+Route::get('classes/{id}/edit',[ClasseController::class, 'edit'])->name('classes.edit');
 Route::put('classes/{id}',[ClasseController::class, 'update'])->name('classes.update');
 Route::get('classes/{id}/show',[ClasseController::class, 'show'])->name('classes.show');
 Route::delete('delete',[ClasseController::class, 'destroy'])->name('classes.destroy');
@@ -188,8 +221,20 @@ Route::delete('classes/{id}/forceDelete', [ClasseController::class, 'forceDelete
 
 
 // fashion
-Route::prefix('products')->group(function(){
+Route::prefix('products')->middleware('verified')->group(function(){
     Route::get('fashion', [ProductController::class,'index'])->name('products.index');
+    Route::get('', [ProductController::class,'product_index'])->name('products.proindex');
     Route::get('adding', [ProductController::class,'create'])->name('products.create');
     Route::post('', [ProductController::class,'store'])->name('products.store');
+    Route::get('/{id}/edit', [ProductController::class,'edit'])->name('products.edit');
+    Route::put('/{id}', [ProductController::class,'update'])->name('products.update');
+    Route::get('/{id}/show', [ProductController::class,'show'])->name('products.show');
+    Route::delete('/delete', [ProductController::class,'destroy'])->name('products.destroy');
+    Route::get('trashed', [ProductController::class,'showDeleted'])->name('products.showDeleted');
+    Route::patch('/{id}/restore', [ProductController::class,'restore'])->name('products.restore');
+    Route::delete('/{id}/forceDelete', [ProductController::class,'forceDeleted'])->name('products.forceDeleted');
 });
+
+Auth::routes(['verify' => true]);
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

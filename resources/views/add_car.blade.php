@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{LaravelLocalization::getCurrentLocale()}}" dir="{{ LaravelLocalization::getCurrentLocaleDirection() }}">">
 
 <head>
   <meta charset="UTF-8" />
@@ -23,29 +23,32 @@
   <main>
     <div class="container my-5">
       <div class="bg-light p-5 rounded">
-        <h2 class="fw-bold fs-2 mb-5 pb-2">Add Car</h2>
+        <p>{{__('cars.language')}} <br>
+        <a href="{{ LaravelLocalization::getLocalizedURL('en')}}">English</a><br>
+        <a href="{{ LaravelLocalization::getLocalizedURL('ar')}}">العربية</a></p>
+        <h2 class="fw-bold fs-2 mb-5 pb-2">{{__('cars.add')}}</h2>
         <form action="{{route('cars.store')}}" method="POST" class="px-md-5" enctype="multipart/form-data">
          @csrf 
         <div class="form-group mb-3 row">
-            <label for="" class="form-label col-md-2 fw-bold text-md-end">Car Title:</label>
+            <label for="" class="form-label col-md-2 fw-bold text-md-end">{{__('cars.carTitle')}} :</label>
             <div class="col-md-10">
-              <input type="text" placeholder="BMW" class="form-control py-2" name="carTitle" />
+              <input type="text" placeholder="{{__('cars.BMW')}}" class="form-control py-2" name="carTitle" />
               @error('carTitle')
               <div class="alert alert-warning">{{$message}}</div>
                @enderror
             </div>
           </div>
           <div class="form-group mb-3 row">
-            <label for="" class="form-label col-md-2 fw-bold text-md-end">Price:</label>
+            <label for="" class="form-label col-md-2 fw-bold text-md-end">{{__('cars.Price')}}:</label>
             <div class="col-md-10">
-              <input type="number" step="0.1" placeholder="Enter price" name="price" class="form-control py-2" />
+              <input type="number" step="0.1" placeholder="{{__('cars.enterPrice')}}" name="price" class="form-control py-2" />
               @error('price')
               <div class="alert alert-warning">{{$message}}</div>
                @enderror
             </div>
           </div>
           <div class="form-group mb-3 row">
-            <label for="" class="form-label col-md-2 fw-bold text-md-end">Description:</label>
+            <label for="" class="form-label col-md-2 fw-bold text-md-end">{{__('cars.Description')}}:</label>
             <div class="col-md-10">
               <textarea name="description" id="" cols="30" rows="5" class="form-control py-2"></textarea>
               @error('description')
@@ -53,10 +56,24 @@
                @enderror
             </div>
           </div>
-          <hr>
+          <div class="form-group mb-3 row">
+            <label for="" class="form-label col-md-2 fw-bold text-md-end">{{__('cars.Category')}}:</label>
+            <div class="col-md-10">
+              <select name="category_id" id="" class="form-control">
+                <option value="">{{__('cars.selectCategory')}}</option>
+                 @foreach($categories as $category)
+                <option value="{{$category->id}}" @selected(old('category_id') == $category->id)>{{$category->category_name}}</option>
+                @endforeach
+              </select>
+              @error('price')
+                <div class="alert alert-warning">{{$message}}</div>
+              @enderror
+            </div>
+          </div>
+          
             <div class="form-group mb-3 row">
               <label for="" class="form-label col-md-2 fw-bold text-md-end"
-                >Image:</label
+                >{{__('cars.Image')}}:</label
               >
               <div class="col-md-10">
                 <input
@@ -69,7 +86,7 @@
             </div>
           <hr>
           <div class="form-group mb-3 row">
-            <label for="" class="form-label col-md-2 fw-bold text-md-end">Published:</label>
+            <label for="" class="form-label col-md-2 fw-bold text-md-end">{{__('cars.Published')}}:</label>
             <div class="col-md-10">
               <input type="checkbox" class="form-check-input" name="published" style="padding: 0.7rem;" />
               @error('published')
@@ -79,7 +96,7 @@
           </div>
           <div class="text-md-end">
             <button class="btn mt-4 btn-secondary text-white fs-5 fw-bold border-0 py-2 px-md-5">
-              Add Car
+            {{__('cars.add')}}
             </button>
           </div>
         </form>

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Laravel</title>
+   <style>
+     code{
+      color: rgb(241, 110, 110);
+     }
+     h1{
+      text-align: center;
+      color: rgb(230, 66, 66);
+     } 
+     h2{
+      color: rgb(99, 40, 40);
+     } 
+     body{
+      background-image:url('../public/assets/images/laravel-logo.jpg') ;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: cover;
+      background-color: aqua;
+      
+     }
+
+   </style>
+
+</head>
+<body class="body">
+   <div>
+    <h1>Middleware in Laravel:</h1>
+ 
+   <p>- Middleware are layers of code that you can use to inspect and manipulate HTTP requests before they reach your controllers and actions.
+   <br>- They can also modify the response before it is sent back to the user.</p>
+   </div>
+
+ <div>
+   <h2>Common Use Cases:</h2>
+      - Authentication: Ensuring that the user is logged in before accessing certain routes.
+   <br>- Logging: Logging every request to the application.
+   <br>- CORS: Handling Cross-Origin Resource Sharing headers.
+   <br>- Rate Limiting: Limiting the number of requests a user can make to the application within a certain time frame.</p>
+ </div>
+ <div>
+   <h2>Creating Middleware:</h2>
+   <div>
+      <p>- You can create custom middleware using the Artisan command:
+           <br>bash<br>
+         <code>
+          php artisan make:middleware CheckAge
+         </code>
+        <br><br>- This will create a middleware class in the app/Http/Middleware directory.</p>
+   </div>
+   <div>
+      <h2>Registering Middleware: </h2>
+      <div>
+         <p>
+            - Middleware can be registered globally or assigned to specific routes.
+        <br>- Global middleware is defined in the app/Http/Kernel.php file under the $middleware array.
+        <br>- Route-specific middleware can be registered under the $routeMiddleware array and applied to routes or route groups in the routes/web.php file.
+         </p>
+      </div>
+   </div>
+   <div>
+      <h2>Applying Middleware: </h2>
+      <p>
+         - You can apply middleware to routes like this:
+     <br>php<br>
+     <code>Route::get('admin/profile', function () {
+         // Your code here
+     })->middleware('auth');
+     </code>
+      </p>
+   </div>
+   <div>
+      <h2>Middleware Parameters:</h2>
+      <p>
+         - Middleware can accept parameters. For example, a middleware that checks the user's role might look like this:
+        <br>php <br>
+        <code>Route::put('post/{id}', function ($id) {
+         // Your code here
+     })->middleware('role:admin');
+        </code>
+      </p>
+   </div>
+   <div>
+      <h2>Terminating Middleware: </h2>
+      <p>
+         - Some middleware needs to perform tasks after the response has been sent to the user. Laravel provides a terminate method for this purpose, which can be used within the middleware.         
+      </p>
+   </div>
+   <div>
+      <h2>
+         Middleware Groups:</h2>
+         <p>
+            - Middleware can be grouped under a single key, allowing you to apply multiple middleware to a route in one go. For example:
+             <br> php <br>
+           <code>'web' => [
+                \App\Http\Middleware\EncryptCookies::class,<br>
+                \App\Http\Middleware\VerifyCsrfToken::class,
+            ],
+           </code> 
+         </p>
+   </div>
+   <div>
+      <h2>Third-Party Middleware: </h2>
+               <p>
+                  - Laravel supports middleware provided by third-party packages. These middleware are typically registered in the service provider of the package.
+
+         <h3>Example of a Simple Middleware:</h3>
+
+         <p>Here’s an example of a middleware that checks if the user’s age is greater than 18:
+
+         <br>php <br>
+          <code>namespace App\Http\Middleware;
+
+            use Closure; <br>
+            
+            class CheckAge <br>
+            { <br>
+                public function handle($request, Closure $next) <br>
+                { <br>
+                    if ($request->age <= 18) { <br>
+                        return redirect('home'); <br>
+                    } <br>
+            
+                    return $next($request); <br>
+                } <br>
+            } <br>
+          </code>
+
+
+        <p style="color: aliceblue;">In this example, if the user's age is less than or equal to 18, they are redirected to the home page. Otherwise, the request is passed further down the line to the next middleware or the controller.</p>
+
+               </p>
+   </div>
+</body>
+</html>

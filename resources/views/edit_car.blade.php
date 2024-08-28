@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Add Car</title>
+  <title>Edit Car</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -45,10 +45,28 @@
               <textarea name="description" id="" cols="30" rows="5" class="form-control py-2">{{$car->description}}</textarea>
             </div>
           </div>
+          <div class="form-group mb-3 row">
+            <label for="" class="form-label col-md-2 fw-bold text-md-end">Category:</label>
+            <div class="col-md-10">
+              <select name="category_id" id="" class="form-control">
+                <option value="">Select category</option>
+                 @foreach($categories as $category)
+                 <option value="{{$category->id}}" @selected(old('$category->id',$car->category_id) == $category->id)>{{$category->category_name}}</option>
+                @endforeach
+              </select>
+            </div>
+          </div>
+          <div class="form-group mb-3 row">
+            <label for="" class="form-label col-md-2 fw-bold text-md-end"
+            >Image:</label>
+            <div class="col-md-10">
+              <input type="file" name="image" class="form-control" style="padding: 0.7rem;" />
+            </div>
+          </div>
           <div class="row justify-content-end">
               <div class="col-md-10">
                 <img
-                  src="{{asset('assets/images/' . $car['image'])}}"
+                  src="{{asset('assets/images/car/' . $car['image'])}}"
                   alt="{{$car['carTitle']}}"
                   style="max-width: 150px"
                 />

@@ -30,7 +30,13 @@
 <body style="background-image: linear-gradient(90deg, #b743ae, #ed429e);">
     <div class="container my-5">
         <div class="py-5 px-md-5 px-1  rounded-1 mx-md-5" style="background-color: #fffffff2;">
-            <h2 class="fw-bold fs-1 mb-3 pb-2 text-center">Contact Us</h2>
+              <!-- success message display -->
+                        @if(session('success'))
+                    <div class="alert alert-success">
+                        {{ session('success') }}
+                    </div>
+                @endif
+        <h2 class="fw-bold fs-1 mb-3 pb-2 text-center">Contact Us</h2>
             <form action="{{route('submit')}}" method="POST">
               @csrf
                 <div class="form-group mb-3 row">

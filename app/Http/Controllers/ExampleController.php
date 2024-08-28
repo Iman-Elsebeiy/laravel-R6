@@ -3,30 +3,46 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\support\Facades\DB;
 
 class ExampleController extends Controller
 {
-   public function login(){
-        return view('login');
+    public function login()
+    {return view('login');}
+
+    public function product()
+    {
+        return view('products');
     }
-  
+
+    public function about()
+    {
+        return view('about');
+    }
+
 //1. contact us page
-    function contact(){
+    public function contact()
+    {
         return view('contact');
     }
-//2.request ... method
-    function submit(Request $req){
+
+
+//2.request ... method مهم
+    public function submit(Request $req)
+    {
         //  dd($req->all());
-         return $req['name'] . '<br>' .$req['email'] . '<br>' .$req['subject'] . '<br>' .$req['message'] . $req->pwd;
+        return $req['name'] . '<br>' . $req['email'] . '<br>' . $req['subject'] . '<br>' . $req['message'] . $req->pwd;
     }
     // function submit(Request $req) {
     //     print_r($req->input());
     // }
 
-    public function uploadform(){
+    public function uploadform()
+    {
         return view('upload');
     }
-    public function upload(Request $request){
+    public function upload(Request $request)
+    {
         $file_extension = $request->image->getClientOriginalExtension();
         $file_name = time() . '.' . $file_extension;
         $path = 'assets/images';
@@ -37,4 +53,17 @@ class ExampleController extends Controller
     // public function fashionIndex() {
     //     return view('fashion_index');
     // }
+    public function test()
+    {
+        // dd(Student::find(6)->phone);
+        // dd(Student::find(6)?->phone->phone_number);
+
+        // طريقة الQUERY
+        DD(
+            DB::table('students')
+                ->join('phones', 'phones.id', '=', 'students.phone_id')
+                ->where('students.id', '=', 6)
+                ->first()
+        );
+    }
 }

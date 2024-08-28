@@ -27,12 +27,13 @@
         <table class="table table-hover">
           <thead>
             <tr class="table-dark">
+      <a href="{{route('classes.create')}}">Add class</a>
               <th scope="col">Class Name</th>
               <th scope="col">Capacity</th>
               <th scope="col">Price</th>
               <th scope="col">Is fulled</th>
               <th scope="col">   Time </th>
-              <th scope="col">Edite</th>
+              <th scope="col">Edit</th>
               <th scope="col">Show</th>
               <th scope="col">Delete</th>
             </tr>
@@ -44,7 +45,7 @@
               <td>{{$classe['capacity']}}</td>
               <td> {{$classe['price'] }} $ </td>
               <td>{{$classe->isFulled? 'yes':'no'}}</td>
-              <td>{{date("h:i", strtotime($classe['timeFrom']))}} {{"-"}}{{date("h:i A", strtotime($classe['timeTo']))}}</td>
+              <td>{{date("h:i", strtotime($classe['timeFrom']))}} - {{date("h:i A", strtotime($classe['timeTo']))}}</td>
               <td><a href="{{route('classes.edit', $classe['id'])}}">✒️</a></td>
               <td><a href="{{route('classes.show', $classe['id'])}}">Show</a></td>
               <td><form action="{{ route('classes.destroy') }}" method="post">

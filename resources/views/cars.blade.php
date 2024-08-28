@@ -28,6 +28,7 @@
           <thead>
             <tr class="table-dark">
               <th scope="col">Car Title</th>
+              <th scope="col">Category</th>
               <th scope="col">Price</th>
               <th scope="col">Description</th>
               <th scope="col">Published</th>
@@ -40,9 +41,10 @@
             @foreach($cars as $car)
             <tr>
               <td scope="row">{{$car['carTitle']}}</td>
+              <td scope="row">{{$car->category['category_name']}}</td>
               <td>{{$car['price']}}</td>
               <td>{{Str::limit($car['description'],20, '...')}}</td>
-              <td>{{$car->published? 'yes':'no'}}</td>
+              <td>{{$car->published? 'Yes':'No'}}</td>
               <td><a href="{{route('cars.edit', $car['id'])}}">✒️</a></td>
               <td><a href="{{route('cars.show', $car['id'])}}">Show</a></td>
               <td><form action="{{route('cars.destroy') }}" method="post">

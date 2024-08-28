@@ -29,8 +29,8 @@
           <div class="form-group mb-3 row">
             <label for="" class="form-label col-md-2 fw-bold text-md-end">Product name:</label>
             <div class="col-md-10">
-              <input type="text" placeholder="Product title" class="form-control py-2" name="productName" value="{{old('productName')}}"/>
-              @error('productName')
+              <input type="text" placeholder="Product title" class="form-control py-2" name="productname" value="{{old('productname')}}"/>
+              @error('productname')
               <div class="alert alert-warning">{{$message}}</div>
               @enderror
             </div>
