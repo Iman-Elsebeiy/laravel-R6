@@ -135,7 +135,7 @@ Route::get('cv', function(){
 // OR
 Route::view('CV','CV');
 
-// link
+// link... مهم
 Route::get('link', function(){
     $url = route('w');
     return "<a href='$url'>Go to welcom</a>";
@@ -143,6 +143,9 @@ Route::get('link', function(){
 Route::get('welcom', function(){
     return('welcom to laravel');
 })->name('w');
+
+
+
 #method ..... 
 Route::get('login',[ExampleController::class,'login']);
 
@@ -199,6 +202,10 @@ Route::post('upload', [ExampleController::class,'upload'])->name('upload');
 Route::get('index', [ExampleController::class,'fashionIndex']);
 Route::get('about', [ExampleController::class,'about']);
 Route::get('product', [ExampleController::class,'product']);
+
+
+
+
 
 // classes
 Route::get('classes',[ClasseController::class, 'index'])->name('classes.index');

@@ -190,5 +190,13 @@ return [
     |
     */
 
+    'attributes' => [
+    "carTitle" => 'اسم السيارة',
+    "Price" => 'السعر',
+    "Description" => 'الوصف',
+    "Category" => 'الفئة',
+    "Image" => 'الصورة',
+    "Published" => 'النشر',
+    ],
 
 ];

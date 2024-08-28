@@ -14,6 +14,13 @@ class ClasseController extends Controller
     /**
      * Display a listing of the resource.
      */
+    // لينك لاي صفحة 
+    // public function link(){
+    //     $url = route('classes.create');
+    //     return "<a href='$url'>add class</a>";
+    // }
+
+
     public function index()
     {
         $classes = Classe::get();

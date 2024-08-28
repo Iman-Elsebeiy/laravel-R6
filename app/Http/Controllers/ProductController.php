@@ -56,7 +56,7 @@ class ProductController extends Controller
 
          Product::create($data);
         //    return "Data added successfully";
-        return redirect()->route('products.index');
+        // return redirect()->route('products.index');
     }
 
     /**

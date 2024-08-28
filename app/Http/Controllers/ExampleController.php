@@ -25,7 +25,9 @@ class ExampleController extends Controller
     {
         return view('contact');
     }
-//2.request ... method
+
+
+//2.request ... method مهم
     public function submit(Request $req)
     {
         //  dd($req->all());
