@@ -2,18 +2,17 @@
 
 namespace App\Console\Commands;
 
-use App\Mail\SendEmail;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Mail;
+use App\Models\User;
 
-class SendEmailCommand extends Command
+class ExpirationCommand extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'app:send-email-command';
+    protected $signature = 'app:expiration-command';
 
     /**
      * The console command description.
@@ -27,6 +26,8 @@ class SendEmailCommand extends Command
      */
     public function handle()
     {
-        Mail::to('imanmagdy96@gmail.com')->send(new SendEmail);
+        User::where('expired', '=', 0)
+             ->update(['expired'=> 1]);
     }
+
 }
